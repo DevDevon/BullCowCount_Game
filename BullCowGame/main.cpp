@@ -1,5 +1,5 @@
 /* This is the console executable, that makes use of the BullCow class
-This acts as the view in a MVC pattern, and is responsible for all
+This acts as the view in a MVC pattern, and is responsible for all  TEST
 user interaction. For game logic see the FBullCowGame class.
 */
 
@@ -65,7 +65,6 @@ void PlayGame()
 
 	PrintGameSummary(); 
 	
-
 	return;
 }
 
