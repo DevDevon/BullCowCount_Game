@@ -9,19 +9,25 @@ FBullCowGame::FBullCowGame() { Reset(); }
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
+FString FBullCowGame::GetChosenWord() const { return MyHiddenWord; }
 
-FString FBullCowGame::GetHiddenWord() const { return MyHiddenWord; }
+void FBullCowGame::GetHiddenWord(int32 Difficulty) {
+	TMap<int32, FString> HiddenWordList{ {1, "are"}, {2, "scale"}, {3, "planets"} };
+	MyHiddenWord = HiddenWordList[Difficulty];
+
+	return;
+}
 
 int32 FBullCowGame::GetMaxTries() const {
-	TMap<int32, int32> WordLengthToMaxTries{ {3,5},{4,5},{5,5},{6,5} };
+	TMap<int32, int32> WordLengthToMaxTries{ {3,4},{5,5},{7,6} };
 
 	return WordLengthToMaxTries[MyHiddenWord.length()];
 }
 
 void FBullCowGame::Reset()
 {
-	const FString HIDDEN_WORD = "planet";
-	MyHiddenWord = HIDDEN_WORD;
+	//const FString HIDDEN_WORD = "planet";
+	//MyHiddenWord = HIDDEN_WORD;
 
 	MyCurrentTry = 1;
 	bGameIsWon = false;

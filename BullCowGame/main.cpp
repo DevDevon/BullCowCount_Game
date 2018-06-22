@@ -1,7 +1,7 @@
 /* This is the console executable, that makes use of the BullCow class
 This acts as the view in a MVC pattern, and is responsible for all
 user interaction. For game logic see the FBullCowGame class.
-MASTER */
+*/
 
 #include <iostream>
 #include <string>	
@@ -13,6 +13,7 @@ using int32 = int;
 void PrintIntro();
 void PlayGame();
 void PrintGameSummary();
+void GetValidDifficulty();
 FText GetValidGuess();
 bool AskToPlayAgain();
 
@@ -49,6 +50,11 @@ void PlayGame()
 {
 	BCGame.Reset();
 
+	GetValidDifficulty();
+
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //clearing buffer from difficulty
+
 	int32 MaxTries = BCGame.GetMaxTries();
 	
 	// loop asking for guesses while the game
@@ -73,7 +79,7 @@ void PrintGameSummary()
 {
 	if (BCGame.IsGameWon())
 	{
-		std::cout << "Congratulations! You won in " << BCGame.GetCurrentTry() - 1 << " tries with the guess \"" << BCGame.GetHiddenWord() << "\".\n";
+		std::cout << "Congratulations! You won in " << BCGame.GetCurrentTry() - 1 << " tries with the guess \"" << BCGame.GetChosenWord() << "\".\n";
 	} else
 	{
 		std::cout << "Wah Wah. Better luck next time. ; _ ;\n";
@@ -82,9 +88,29 @@ void PrintGameSummary()
 	return;
 }
 
+void GetValidDifficulty() {
+	//Get difficulty from player
+	//Check validity
+	//assign word
+
+	int32 Difficulty{ 1 };
+
+	std::cout << "Please enter a difficulty in numeric form (1 - 3): ";
+	while (!(std::cin >> Difficulty)) {
+		std::cout << "Please enter a valid number from 1 to 3: ";
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	}
+	std::cout << std::endl;
+	BCGame.GetHiddenWord(Difficulty);
+
+	return;
+}
+
 // loop continually until the user gives a valid guess
 FText GetValidGuess()
 {
+
 	FText Guess = "";
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
 	do {
