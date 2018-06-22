@@ -48,6 +48,14 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	}
 }
 
+EPlayerWordLength FBullCowGame::CheckPlayerWLValidity(int32 PlayerLength) const {
+	if (true) {
+
+	}
+
+	return EPlayerWordLength();
+}
+
 // receives a VALID guess, incriments turn, and returns count
 FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 {

@@ -20,6 +20,13 @@ enum class EGuessStatus
 	Not_Lowercase
 };
 
+enum class EPlayerWordLength {
+	Invalid_Status,
+	OK,
+	Not_Number,
+	Wrong_Number
+};
+
 class FBullCowGame
 {
 public:
@@ -32,6 +39,7 @@ public:
 
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValidity(FString) const;
+	EPlayerWordLength CheckPlayerWLValidity(int32) const; //WL is word length
 
 	void Reset();
 	FBullCowCount SubmitValidGuess(FString);

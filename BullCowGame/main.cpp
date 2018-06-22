@@ -13,6 +13,7 @@ using int32 = int;
 void PrintIntro();
 void PlayGame();
 void PrintGameSummary();
+void GetPlayerWordLength();
 FText GetValidGuess();
 bool AskToPlayAgain();
 
@@ -32,7 +33,6 @@ int main()
 	return 0; // exit the application
 }
 
- 
 // introduce the game
 void PrintIntro()
 {
@@ -49,6 +49,7 @@ void PlayGame()
 {
 	BCGame.Reset();
 
+	GetPlayerWordLength();
 	int32 MaxTries = BCGame.GetMaxTries();
 	
 	// loop asking for guesses while the game
@@ -79,6 +80,32 @@ void PrintGameSummary()
 	}
 
 	return;
+}
+
+//request number of letters from player
+//Validate player entry as valid number
+//select word based on player's number
+
+void GetPlayerWordLength() {
+	int32 PlayerWordLength{ 3 };
+	EPlayerWordLength Status = EPlayerWordLength::Invalid_Status;
+	do {
+		std::cout << "Please enter the number of letters you would like in your isogram: ";
+		std::cin >> PlayerWordLength; //get player word length using method in FBullCowGame 
+		Status = BCGame.CheckPlayerWLValidity(PlayerWordLength);
+		switch (Status) {
+		case EPlayerWordLength::OK:
+			//TODO create method to set hidden word based on PlayerWordLength
+			break;
+		case EPlayerWordLength::Not_Number:
+			
+			break;
+		case EPlayerWordLength::Wrong_Number:
+			break;
+		default:
+			break;
+		}
+	} while (true);
 }
 
 // loop continually until the user gives a valid guess
