@@ -1,10 +1,14 @@
+/*
+The game logic (no view code or direct user interaction).
+The game is a simple gues the word game based on Mastermind.
+*/
+
 #pragma once
 #include <string>
 
 using FString = std::string;
 using int32 = int;
 
-// all values intialised to zero
 struct FBullCowCount
 {
 	int32 Bulls = 0;
