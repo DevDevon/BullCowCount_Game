@@ -20,6 +20,7 @@ void PlayGame();
 void PrintGameSummary();
 FText GetValidGuess();
 bool AskToPlayAgain();
+int32 GetUWordLength();
 
 FBullCowGame BCGame;
 
@@ -40,10 +41,10 @@ void PrintIntro()
 {
 	//ASCII art would go here if I could do it or cared...
 
-	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
-	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
-	std::cout << " letter isogram that I'm thinking of?\n";
-	std::cout << std::endl;
+	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n\n";
+	//std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
+	//std::cout << " letter isogram that I'm thinking of?\n";
+	std::cout << "First we will ask for your preferred difficulty!\n";
 	return;
 }
 
@@ -51,6 +52,7 @@ void PlayGame()
 {
 	BCGame.Reset();
 
+	int32 uWordLength = GetUWordLength();
 	int32 MaxTries = BCGame.GetMaxTries();
 	
 	// loop asking for guesses while the game
@@ -82,6 +84,27 @@ void PrintGameSummary()
 	}
 
 	return;
+}
+
+int32 GetUWordLength() {
+	int32 uWordLength;
+	ELengthStatus LengthStatus = ELengthStatus::Invalid_Status;
+	std::cout << "Please enter a number between, and including, 3 to 7 to pick word length and difficulty: ";
+	do {
+		std::cin >> uWordLength;
+		LengthStatus = BCGame.CheckLengthValidity(uWordLength);
+		if (LengthStatus == ELengthStatus::Not_In_Range) {
+			std::cout << "Please try again. The number must be either 3, 4, 5, 6, or 7: ";
+		}
+	} while (LengthStatus != ELengthStatus::OK);
+	BCGame.SetHiddenWord(uWordLength);
+
+	std::cout << std::endl << "Thank you! You have " << BCGame.GetMaxTries() << " tries!" << "\n\n";
+
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+	return uWordLength;
 }
 
 FText GetValidGuess()

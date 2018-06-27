@@ -24,6 +24,14 @@ enum class EGuessStatus
 	Not_Lowercase
 };
 
+enum class ELengthStatus
+{
+	Invalid_Status,
+	OK,
+	Not_Int,
+	Not_In_Range
+};
+
 class FBullCowGame
 {
 public:
@@ -36,8 +44,10 @@ public:
 
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValidity(FString) const;
+	ELengthStatus CheckLengthValidity(int32) const;
 
 	void Reset();
+	void SetHiddenWord(int32);
 	FBullCowCount SubmitValidGuess(FString);
 
 private:

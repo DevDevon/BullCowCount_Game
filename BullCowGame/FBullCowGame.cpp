@@ -10,12 +10,19 @@ FBullCowGame::FBullCowGame() { Reset(); }
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
-
 FString FBullCowGame::GetHiddenWord() const { return MyHiddenWord; }
+
+void FBullCowGame::SetHiddenWord(int32 wLength) 
+{
+	TMap<int32, FString> HiddenWordList{ {3,"ace"},{4,"race"},{5,"baces"},{6,"planet"},{7,"planets"} };
+	MyHiddenWord = HiddenWordList[wLength];
+
+	return;
+}
 
 int32 FBullCowGame::GetMaxTries() const
 {
-	TMap<int32, int32> WordLengthToMaxTries{ {3,5},{4,5},{5,5},{6,5} };
+	TMap<int32, int32> WordLengthToMaxTries{ {3,5},{4,6},{5,7},{6,10},{7,12} };
 
 	return WordLengthToMaxTries[MyHiddenWord.length()];
 }
@@ -48,6 +55,13 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	{
 		return EGuessStatus::OK;
 	}
+}
+
+ELengthStatus FBullCowGame::CheckLengthValidity(int32 uLength) const {
+	if (uLength >= 3 && uLength <= 7) {
+		return ELengthStatus::OK;
+	}
+	return ELengthStatus::Not_In_Range;
 }
 
 // receives a VALID guess, incriments turn, and returns count
